@@ -1,0 +1,741 @@
+﻿<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Zestcon Infra - Smart Construction, Simplified.</title>
+  <style>
+    :root {
+      --bg-dark: #161d27;
+      --card-dark: #1f2937;
+      --primary-orange: #f97316;
+      --orange-hover: #ea580c;
+      --navy-accent: #1e3a8a;
+      --text-light: #f8fafc;
+      --text-muted: #94a3b8;
+      --bg-light: #f1f5f9;
+      --white: #ffffff;
+      --border: #e2e8f0;
+      --success: #16a34a;
+    }
+
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+
+    body {
+      background-color: #cbd5e1;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+
+    /* Mobile App Container */
+    .app-shell {
+      width: 100%;
+      max-width: 480px;
+      background-color: var(--bg-light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      padding-bottom: 75px;
+    }
+
+
+    /* App Header */
+    .header {
+      background: linear-gradient(135deg, #111827 0%, #1e293b 100%);
+      color: var(--white);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid var(--primary-orange);
+    }
+
+
+    .logo-badge {
+      width: 46px;
+      height: 46px;
+      background: #263142;
+      border: 2px solid #475569;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 24px;
+      color: var(--primary-orange);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      flex-shrink: 0;
+    }
+
+
+    .brand-info h1 {
+      font-size: 19px;
+      letter-spacing: 0.8px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+
+    .brand-info h1 span {
+      color: var(--primary-orange);
+    }
+
+
+    .brand-info p {
+      font-size: 11px;
+      color: #fdba74;
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+
+    /* Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: var(--white);
+      margin: 14px;
+      padding: 18px;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      border-left: 5px solid var(--primary-orange);
+    }
+
+
+    .hero-banner h2 {
+      font-size: 17px;
+      margin-bottom: 6px;
+    }
+
+
+    .hero-banner p {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.4;
+      margin-bottom: 14px;
+    }
+
+
+    .btn-primary {
+      background-color: var(--primary-orange);
+      color: var(--white);
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      transition: background 0.2s;
+    }
+
+
+    .btn-primary:hover {
+      background-color: var(--orange-hover);
+    }
+
+
+    /* Section Headings */
+    .section-title {
+      padding: 6px 16px 10px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #1e293b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+
+    .section-title span {
+      font-size: 11px;
+      color: var(--primary-orange);
+      font-weight: 600;
+    }
+
+
+    /* Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 0 14px 16px;
+    }
+
+
+    .service-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+
+    .service-card:active {
+      transform: scale(0.98);
+      border-color: var(--primary-orange);
+    }
+
+
+    .service-icon {
+      width: 40px;
+      height: 40px;
+      background: #fff7ed;
+      color: var(--primary-orange);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+
+    .service-card h3 {
+      font-size: 14px;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+
+    .service-card p {
+      font-size: 11.5px;
+      color: #64748b;
+      line-height: 1.3;
+    }
+
+
+    /* Cards & Forms */
+    .card-box {
+      background: var(--white);
+      margin: 12px 14px;
+      padding: 16px;
+      border-radius: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+    }
+
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+
+    .form-group label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 5px;
+    }
+
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 14px;
+      outline: none;
+      background: #f8fafc;
+    }
+
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary-orange);
+      background: var(--white);
+    }
+
+
+    /* Filter Chips */
+    .chips-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 14px 12px;
+      scrollbar-width: none;
+    }
+
+
+    .chip {
+      padding: 6px 14px;
+      background: var(--white);
+      border: 1px solid #cbd5e1;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+
+    .chip.active {
+      background: var(--primary-orange);
+      color: var(--white);
+      border-color: var(--primary-orange);
+    }
+
+
+    /* Team Member Card */
+    .member-card {
+      background: var(--white);
+      margin: 0 14px 10px;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+
+    .member-info h4 {
+      font-size: 14.5px;
+      color: #0f172a;
+    }
+
+
+    .badge-role {
+      display: inline-block;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin: 4px 0;
+    }
+
+
+    .member-meta {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+
+    .call-btn {
+      background: var(--success);
+      color: var(--white);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+
+    /* Calculator Result */
+    .calc-result {
+      background: #fff7ed;
+      border: 1.5px dashed var(--primary-orange);
+      padding: 14px;
+      border-radius: 12px;
+      margin-top: 14px;
+      text-align: center;
+    }
+
+
+    .calc-result h3 {
+      font-size: 22px;
+      color: var(--primary-orange);
+      margin: 4px 0;
+    }
+
+
+    /* Booking Item */
+    .booking-item {
+      border-left: 4px solid var(--primary-orange);
+      background: #f8fafc;
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+
+    /* Pages Visibility */
+    .page {
+      display: none;
+    }
+    .page.active {
+      display: block;
+    }
+
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      max-width: 480px;
+      background: #111827;
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0 10px;
+      border-top: 2px solid #334155;
+      z-index: 200;
+    }
+
+
+    .nav-item {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 600;
+      gap: 3px;
+      cursor: pointer;
+      width: 25%;
+    }
+
+
+    .nav-item .nav-icon {
+      font-size: 18px;
+    }
+
+
+    .nav-item.active {
+      color: var(--primary-orange);
+    }
+
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f172a;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      z-index: 999;
+      display: none;
+      border: 1px solid var(--primary-orange);
+    }
+  </style>
+</head>
+<body>
+
+
+<div class="app-shell">
+  <!-- App Header -->
+  <header class="header">
+    <div class="logo-badge">Z</div>
+    <div class="brand-info">
+      <h1>ZESTCON <span>INFRA</span></h1>
+      <p>Smart Construction, Simplified.</p>
+    </div>
+  </header>
+
+
+  <div id="toast" class="toast">संदेश सेव हो गया!</div>
+
+
+  <!-- PAGE 1: HOME & SERVICES -->
+  <div id="page-home" class="page active">
+    <div class="hero-banner">
+      <h2>Complete Construction Solutions</h2>
+      <p>टाइल फिटिंग, प्लास्टर, पुट्टी-पेंटिंग और बिल्डिंग कंस्ट्रक्शन के लिए अनुभवी इंजीनियर, सुपरवाइजर और कारीगर एक ही प्लेटफॉर्म पर।</p>
+      <button class="btn-primary" onclick="scrollToBooking()">📋 नया काम बुक करें (Book Service)</button>
+    </div>
+
+
+    <div class="section-title">
+      हमारी प्रमुख सेवाएं (Our Services)
+      <span>100% क्वालिटी वर्क</span>
+    </div>
+
+
+    <div class="services-grid">
+      <div class="service-card" onclick="selectService('टाइल और मार्बल फिटिंग')">
+        <div class="service-icon">🧱</div>
+        <h3>टाइल फिटिंग</h3>
+        <p>फ्लोर टाइल्स, वॉल टाइल्स, ग्रेनाइट और मार्बल फिटिंग</p>
+      </div>
+      <div class="service-card" onclick="selectService('प्लास्टर और चिनाई वर्क')">
+        <div class="service-icon">🏗️</div>
+        <h3>प्लास्टर व चिनाई</h3>
+        <p>अंदर-बाहर का प्लास्टर, ब्रिक वर्क और वाटरप्रूफिंग</p>
+      </div>
+      <div class="service-card" onclick="selectService('पुट्टी और पेंटिंग वर्क')">
+        <div class="service-icon">🎨</div>
+        <h3>पुट्टी और पेंटिंग</h3>
+        <p>वॉल पुट्टी, प्राइमर, रॉयल पेंट और टेक्सचर फिनिश</p>
+      </div>
+      <div class="service-card" onclick="selectService('फुल बिल्डिंग कंस्ट्रक्शन')">
+        <div class="service-icon">🏢</div>
+        <h3>बिल्डिंग कंस्ट्रक्शन</h3>
+        <p>नक्शे से लेकर चाबी सौंपने तक पूरा निर्माण कार्य</p>
+      </div>
+    </div>
+
+
+    <!-- Quick Service Booking Form -->
+    <div class="card-box" id="booking-section">
+      <h3 style="font-size:16px; margin-bottom:12px; color:#0f172a;">🛠️ काम की बुकिंग / कोटेशन लें</h3>
+      <form onsubmit="submitBooking(event)">
+        <div class="form-group">
+          <label>ग्राहक / बिल्डर का नाम *</label>
+          <input type="text" id="custName" placeholder="अपना नाम लिखें" required />
+        </div>
+        <div class="form-group">
+          <label>मोबाइल नंबर *</label>
+          <input type="tel" id="custPhone" placeholder="10 अंकों का मोबाइल नंबर" required />
+        </div>
+        <div class="form-group">
+          <label>काम का प्रकार चुनें *</label>
+          <select id="serviceType">
+            <option value="टाइल और मार्बल फिटिंग">टाइल और मार्बल फिटिंग</option>
+            <option value="प्लास्टर और चिनाई वर्क">प्लास्टर और चिनाई वर्क</option>
+            <option value="पुट्टी और पेंटिंग वर्क">पुट्टी और पेंटिंग वर्क</option>
+            <option value="फुल बिल्डिंग कंस्ट्रक्शन">फुल बिल्डिंग कंस्ट्रक्शन</option>
+            <option value="इंजीनियर / सुपरवाइजर / लेबर चाहिए">इंजीनियर / सुपरवाइजर / लेबर चाहिए</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>साइट का पता (Location) *</label>
+          <input type="text" id="custLocation" placeholder="जैसे: कल्याण, टिटवाला, ठाणे, मुंबई" required />
+        </div>
+        <div class="form-group">
+          <label>अनुमानित एरिया (Sq. Ft.) या विवरण</label>
+          <input type="text" id="custDetails" placeholder="जैसे: 1200 Sq.Ft. या 2BHK फ्लैट" />
+        </div>
+        <button type="submit" class="btn-primary">✅ बुकिंग सबमिट करें</button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- PAGE 2: DIRECTORY (HIRE ENGINEERS, SUPERVISORS, LABOR) -->
+  <div id="page-team" class="page">
+    <div class="section-title" style="padding-top:14px;">
+      Zestcon नेटवर्क टीम (Direct Hire)
+      <span id="team-count">4 उपलब्ध</span>
+    </div>
+
+
+    <div class="chips-row">
+      <div class="chip active" onclick="filterTeam('All', this)">सभी (All)</div>
+      <div class="chip" onclick="filterTeam('Civil Engineer', this)">इंजीनियर</div>
+      <div class="chip" onclick="filterTeam('Site Supervisor', this)">सुपरवाइजर</div>
+      <div class="chip" onclick="filterTeam('Skilled Mason / Tile / Painter', this)">कारीगर/मिस्त्री</div>
+      <div class="chip" onclick="filterTeam('Helper / Labor', this)">लेबर</div>
+    </div>
+
+
+    <div id="team-list"></div>
+  </div>
+
+
+  <!-- PAGE 3: JOIN NETWORK (REGISTER) -->
+  <div id="page-join" class="page">
+    <div class="card-box">
+      <h3 style="font-size:16px; margin-bottom:6px; color:#0f172a;">🤝 Zestcon Infra टीम से जुड़ें</h3>
+      <p style="font-size:12px; color:#64748b; margin-bottom:14px;">यदि आप सिविल इंजीनियर, सुपरवाइजर, टाइल मिस्त्री, पेंटर या लेबर हैं, तो अपना प्रोफाइल रजिस्टर करें।</p>
+      
+      <form onsubmit="registerMember(event)">
+        <div class="form-group">
+          <label>पूरा नाम *</label>
+          <input type="text" id="memName" placeholder="अपना पूरा नाम लिखें" required />
+        </div>
+        <div class="form-group">
+          <label>आपकी भूमिका (Role) *</label>
+          <select id="memRole">
+            <option value="Civil Engineer">सिविल इंजीनियर (Civil Engineer)</option>
+            <option value="Site Supervisor">साइट सुपरवाइजर (Site Supervisor)</option>
+            <option value="Skilled Mason / Tile / Painter">कारीगर (टाइल / प्लास्टर / पेंटर)</option>
+            <option value="Helper / Labor">हेल्पर / लेबर (Helper / Labor)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>अनुभव (Experience) *</label>
+          <input type="text" id="memExp" placeholder="जैसे: 5 साल का अनुभव" required />
+        </div>
+        <div class="form-group">
+          <label>शहर / क्षेत्र *</label>
+          <input type="text" id="memCity" placeholder="जैसे: कल्याण / टिटवाला / ठाणे" required />
+        </div>
+        <div class="form-group">
+          <label>मोबाइल नंबर *</label>
+          <input type="tel" id="memPhone" placeholder="10 अंकों का नंबर" required />
+        </div>
+        <button type="submit" class="btn-primary">🚀 नेटवर्क में रजिस्टर करें</button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- PAGE 4: CALCULATOR & MY BOOKINGS -->
+  <div id="page-tools" class="page">
+    <div class="card-box">
+      <h3 style="font-size:16px; margin-bottom:10px; color:#0f172a;">🧮 कंस्ट्रक्शन रेट कैलकुलेटर</h3>
+      <div class="form-group">
+        <label>काम चुनें</label>
+        <select id="calcWork" onchange="calculateCost()">
+          <option value="45">टाइल फिटिंग लेबर रेट (₹45 / Sq.Ft.)</option>
+          <option value="35">प्लास्टर लेबर रेट (₹35 / Sq.Ft.)</option>
+          <option value="28">पुट्टी + पेंटिंग लेबर रेट (₹28 / Sq.Ft.)</option>
+          <option value="1650">फुल कंस्ट्रक्शन मटेरियल सहित (₹1,650 / Sq.Ft.)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>कुल एरिया दर्ज करें (Sq. Ft. में)</label>
+        <input type="number" id="calcArea" value="1000" oninput="calculateCost()" />
+      </div>
+      <div class="calc-result">
+        <span style="font-size:12px; color:#475569; font-weight:600;">अनुमानित कुल खर्च (Estimated Cost)</span>
+        <h3 id="calcOutput">₹45,000</h3>
+        <span style="font-size:11px; color:#64748b;">*फाइनल रेट साइट विज़िट के बाद तय होगा</span>
+      </div>
+    </div>
+
+
+    <div class="card-box">
+      <h3 style="font-size:15px; margin-bottom:10px; color:#0f172a;">📑 मेरी बुकिंग्स (Saved Bookings)</h3>
+      <div id="booking-list">
+        <p style="font-size:12.5px; color:#64748b;">अभी तक कोई बुकिंग नहीं की गई है।</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="switchTab('home', this)">
+      <span class="nav-icon">🏠</span>
+      <span>होम</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('team', this)">
+      <span class="nav-icon">👷</span>
+      <span>टीम देखें</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('join', this)">
+      <span class="nav-icon">➕</span>
+      <span>टीम जुड़ें</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('tools', this)">
+      <span class="nav-icon">🧮</span>
+      <span>रेट व बुकिंग</span>
+    </button>
+  </nav>
+</div>
+
+
+<script>
+  // Default Sample Data
+  const defaultTeam = [
+    { name: "इंजी. राजेश शर्मा", role: "Civil Engineer", exp: "8 साल (B.E. Civil)", city: "कल्याण - ठाणे", phone: "9800000001" },
+    { name: "सुनील पाटिल", role: "Site Supervisor", exp: "6 साल अनुभव", city: "टिटवाला ईस्ट", phone: "9800000002" },
+    { name: "अशोक विश्वकर्मा", role: "Skilled Mason / Tile / Painter", exp: "10 साल (टाइल व ग्रेनाइट एक्सपर्ट)", city: "कल्याण", phone: "9800000003" },
+    { name: "महेश यादव", role: "Helper / Labor", exp: "4 साल (कंस्ट्रक्शन लेबर टीम)", city: "टिटवाला - भिवंडी", phone: "9800000004" }
+  ];
+
+
+  let teamMembers = JSON.parse(localStorage.getItem("zestcon_team")) || defaultTeam;
+  let bookings = JSON.parse(localStorage.getItem("zestcon_bookings")) || [];
+
+
+  function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.style.display = "block";
+    setTimeout(() => { t.style.display = "none"; }, 2800);
+  }
+
+
+  function switchTab(tabName, el) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById("page-" + tabName).classList.add("active");
+
+
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+    el.classList.add("active");
+
+
+    if (tabName === "team") renderTeam("All");
+    if (tabName === "tools") renderBookings();
+  }
+
+
+  function scrollToBooking() {
+    document.getElementById("booking-section").scrollIntoView({ behavior: "smooth" });
+  }
+
+
+  function selectService(serviceName) {
+    document.getElementById("serviceType").value = serviceName;
+    scrollToBooking();
+    showToast("चुना गया: " + serviceName);
+  }
+
+
+  function submitBooking(e) {
+    e.preventDefault();
+    const newBooking = {
+      name: document.getElementById("custName").value,
+      phone: document.getElementById("custPhone").value,
+      service: document.getElementById("serviceType").value,
+      location: document.getElementById("custLocation").value,
+      details: document.getElementById("custDetails").value || "N/A",
+      date: new Date().toLocaleDateString("hi-IN")
+    };
+    bookings.unshift(newBooking);
+    localStorage.setItem("zestcon_bookings", JSON.stringify(bookings));
+    e.target.reset();
+    showToast("✅ बुकिंग सफलतापूर्वक दर्ज हो गई!");
+  }
+
+
+  function registerMember(e) {
+    e.preventDefault();
+    const member = {
+      name: document.getElementById("memName").value,
+      role: document.getElementById("memRole").value,
+      exp: document.getElementById("memExp").value,
+      city: document.getElementById("memCity").value,
+      phone: document.getElementById("memPhone").value
+    };
+    teamMembers.unshift(member);
+    localStorage.setItem("zestcon_team", JSON.stringify(teamMembers));
+    e.target.reset();
+    showToast("🎉 आप Zestcon Infra टीम में जुड़ गए हैं!");
+  }
+
+
+  function renderTeam(filter) {
+    const list = document.getElementById("team-list");
+    const filtered = filter === "All" ? teamMembers : teamMembers.filter(m => m.role === filte
